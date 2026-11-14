@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
     [SerializeField, Header("射程距離")] public float _rapierDistance;
+    [SerializeField, Header("攻撃力")] public float[] _damage;
     /// <summary>
     /// インデックス0は速度、1は一時保存用
     /// </summary>
@@ -31,6 +32,11 @@ public class Player : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+    private void OnEnable()
+    {
+        GameManager.Instance._pauseReseum += PauseReseum;
+        
     }
     private void OnDestroy()
     {
@@ -111,11 +117,11 @@ public class Player : MonoBehaviour
             _rapierHitPosition = hit.point;
             if (hit.collider.gameObject.CompareTag("Enemy"))
             {
-                Debug.Log("Enemy");
+                hit.collider.GetComponent<Enemy>()?.EnemyHelth(-_damage[0], 1f);
             }
             else if (hit.collider.gameObject.CompareTag("WeakPoints"))
             {
-                Debug.Log("jakutenn");
+                hit.collider.GetComponentInParent<Enemy>()?.EnemyHelth(-_damage[0], 2f);
             }
         }
     }
@@ -140,6 +146,17 @@ public class Player : MonoBehaviour
         else
         {
             _cousle.color = Color.white;
+        }
+    }
+    public void PauseReseum(bool isPaused)
+    {
+        if(isPaused)
+        {
+
+        }
+        else
+        {
+
         }
     }
     //public void Jump()
