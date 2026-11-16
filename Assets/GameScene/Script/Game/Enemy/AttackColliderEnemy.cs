@@ -7,7 +7,7 @@ public class AttackColliderEnemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        _enemy = GetComponentInParent<Enemy>();
+        _enemy = transform.root.GetComponentInChildren<Enemy>();
     }
 
     // Update is called once per frame

@@ -6,8 +6,8 @@ public class Censor : MonoBehaviour
     EnemyAI _ai;
     private void Awake()
     {
-        _en = GetComponentInParent<Enemy>();
-        _ai = GetComponentInParent<EnemyAI>();
+        _en = transform.root.GetComponentInChildren<Enemy>();
+        _ai = transform.root.GetComponentInChildren<EnemyAI>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

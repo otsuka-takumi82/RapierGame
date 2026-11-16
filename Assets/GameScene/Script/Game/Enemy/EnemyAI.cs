@@ -32,7 +32,7 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(_isAttack[0]);
     }
     private void FixedUpdate()
     {
