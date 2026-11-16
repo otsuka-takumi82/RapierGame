@@ -7,22 +7,31 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; }
     [SerializeField, Header("射程距離")] public float _rapierDistance;
     [SerializeField, Header("攻撃力")] public float[] _damage;
+    [SerializeField, Header("最大HP")] public float _maxHp;
+    public float _currentHp; 
+    [SerializeField, Header("カーソル")] public Image _hpImage;
     /// <summary>
     /// インデックス0は速度、1は一時保存用
     /// </summary>
     [SerializeField, Header("マウス速度")] public float[] _mouseSpeed;
     [SerializeField, Header("ジャンプ速度")] public float _jumpSpeed = 1;
-    [SerializeField, Header("速度")] public float _speed;
+    [SerializeField, Header("速度")] public float[] _speed;
     [SerializeField, Header("縦速度")] public float _verticalSpeed;
     [SerializeField, Header("重力速度")] public float _gravity;
     [SerializeField, Header("カーソル")] public Image _cousle;
     [SerializeField]Transform _camera;
+    float _sideSpeed;
+    float _forwardSpeed;
+    public float _isGrounded;
     CharacterController _characterController;
     Rigidbody _rb;
     Animator _anim;
+    UIManager _ui;
     Vector3 _rapierHitPosition;
+    bool _isJump;
     private void Awake()
     {
+        _ui = FindFirstObjectByType<UIManager>();
         _anim = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
         _rb = GetComponent<Rigidbody>();
@@ -50,19 +59,41 @@ public class Player : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        _sideSpeed = Input.GetAxisRaw("Horizontal") * _speed[0];
+        _forwardSpeed = Input.GetAxisRaw("Vertical") * _speed[0];
+        Move();
     }
 
     // Update is called once per frame
     void Update()
     {
+        _sideSpeed = Input.GetAxisRaw("Horizontal") * _speed[0];
+        _forwardSpeed = Input.GetAxisRaw("Vertical") * _speed[0];
+        if (Input.GetButtonDown("Jump"))
+        {
+            _isJump = true;
+        }
         //レイピア溜め
         RapierCharge();
         //レイピア突き
         RapierRapid();
         //横回転
         MouseRotateX();
+    }
+    private void FixedUpdate()
+    {
         //キャラクターコントローラー関係
         Move();
+    }
+    public void ModifyHelth(float amount, float pile)
+    {
+        _currentHp = Mathf.Clamp(_currentHp + amount * pile, 0, _maxHp);
+        _ui.HP(_hpImage, _currentHp, _maxHp);
+        if (_currentHp <= 0)
+        {
+            //敵倒した処理
+            gameObject.SetActive(false);
+        }
     }
     public void MouseRotateX()
     {
@@ -71,20 +102,17 @@ public class Player : MonoBehaviour
     }
     public void Move()
     {
-        float sideSpeed = Input.GetAxisRaw("Horizontal") * _speed;
-        float forwardSpeed = Input.GetAxisRaw("Vertical") * _speed;
-        
         if(_characterController.isGrounded)
         {
             _verticalSpeed = -1f;
-            if(Input.GetButtonDown("Jump"))
+            if(_isJump)
             {
                 _verticalSpeed = _jumpSpeed;
             }
+            _isJump = false;
         }
-
         _verticalSpeed += Time.deltaTime * _gravity;
-        Vector3 moveMent = new Vector3(sideSpeed, _verticalSpeed, forwardSpeed) * Time.deltaTime;
+        Vector3 moveMent = new Vector3(_sideSpeed, _verticalSpeed, _forwardSpeed) * Time.deltaTime;
         moveMent = transform.rotation * moveMent;
         _characterController.Move(moveMent);
     }
@@ -93,6 +121,8 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             _anim.SetBool("Charge", true);
+            _speed[1] = _speed[0];
+            _speed[0] *= 0.5f;
             _mouseSpeed[1] = _mouseSpeed[0];
             _mouseSpeed[0] *= 0.5f;
         }
@@ -103,6 +133,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             _anim.SetBool("Charge", false);
+            _speed[0] = _speed[1];
             _mouseSpeed[0] = _mouseSpeed[1];
         }
     }
@@ -121,7 +152,9 @@ public class Player : MonoBehaviour
             }
             else if (hit.collider.gameObject.CompareTag("WeakPoints"))
             {
-                hit.collider.GetComponentInParent<Enemy>()?.EnemyHelth(-_damage[0], 2f);
+                Enemy em = hit.collider.GetComponentInParent<Enemy>();
+                em?.EnemyHelth(-_damage[0], 2f);
+                em?.WeakPointsDestroy();
             }
         }
     }
