@@ -11,11 +11,9 @@ public class EnemyAI : MonoBehaviour
     Animator _anim;
     UIManager _ui;
     Enemy _enemy;
-    public bool _isActive;
     /// <summary>
     /// インデックス0は攻撃できるか1は攻撃してるか
     /// </summary>
-    public bool[] _isAttack = new bool[2];
     private void Awake()
     {
         _enemy = GetComponent<Enemy>();
@@ -32,11 +30,11 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_isAttack[0]);
+        Debug.Log(_enemy._isAttack[0]);
     }
     private void FixedUpdate()
     {
-        if( _isActive )
+        if(_enemy._isActive )
         {
             Move();
         }
@@ -51,16 +49,16 @@ public class EnemyAI : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => _isAttack[0]);
+            yield return new WaitUntil(() => _enemy._isAttack[0]);
             _attackEvents[0].Invoke();
-            _isAttack[1] = true;
+            _enemy._isAttack[1] = true;
             yield return new WaitForSeconds(2f);
-            _isAttack[1] = false;
+            _enemy._isAttack[1] = false;
         }
     }
     public void Attack()
     {
-        if (_isAttack[0])
+        if (_enemy._isAttack[0])
         {
             StartCoroutine(AttackCol());
         }
@@ -75,14 +73,14 @@ public class EnemyAI : MonoBehaviour
         if (distance >= 5)
         {
             //範囲外
-            _isAttack[0] = false;
+            _enemy._isAttack[0] = false;
         }
         else
         {
             //範囲内
-            _isAttack[0] = true;
+            _enemy._isAttack[0] = true;
         }
-        if (!_isAttack[1])
+        if (!_enemy._isAttack[1])
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, targetPos, 0.1f);
             transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _enemy._speed[0] / 100);

@@ -7,7 +7,6 @@ public class Censor : MonoBehaviour
     private void Awake()
     {
         _en = transform.root.GetComponentInChildren<Enemy>();
-        _ai = transform.root.GetComponentInChildren<EnemyAI>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,7 +28,11 @@ public class Censor : MonoBehaviour
             {
                 if(hit.collider.gameObject.CompareTag("PlayerTag"))
                 {
-                    _ai._isActive = true;
+                    _en._isActive = true;
+                }
+                else if(hit.collider.gameObject.CompareTag("Wall"))
+                {
+                    _en._isActive = false;
                 }
             }
         }

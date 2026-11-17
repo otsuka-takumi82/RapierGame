@@ -148,13 +148,16 @@ public class Player : MonoBehaviour
             _rapierHitPosition = hit.point;
             if (hit.collider.gameObject.CompareTag("Enemy"))
             {
-                hit.collider.GetComponent<Enemy>()?.EnemyHelth(-_damage[0], 1f);
+                Enemy em = hit.collider.GetComponent<Enemy>();
+                em?.EnemyHelth(-_damage[0], 1f);
+                em._isActive = true;
             }
             else if (hit.collider.gameObject.CompareTag("WeakPoints"))
             {
                 Enemy em = hit.collider.GetComponentInParent<Enemy>();
                 em?.EnemyHelth(-_damage[0], 2f);
                 em?.WeakPointsDestroy();
+                em._isActive=true;
             }
         }
     }

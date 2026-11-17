@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class BigCensor : MonoBehaviour
 {
-    EnemyAI _ai;
+    Enemy _en;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _ai = transform.root.GetComponentInChildren<EnemyAI>();
+        _en = transform.root.GetComponentInChildren<Enemy>();
     }
 
     // Update is called once per frame
@@ -17,7 +17,7 @@ public class BigCensor : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        _ai._isActive = false;
-        _ai._isAttack[0] = false;
+        _en._isActive = false;
+        _en._isAttack[0] = false;
     }
 }

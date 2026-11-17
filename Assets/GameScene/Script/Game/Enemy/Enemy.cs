@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour
     UIManager _ui;
     Player _player;
     int _weakPosIndex;
+    public bool _isActive;
+
+    public bool[] _isAttack = new bool[2];
     private void Awake()
     {
         _player = FindFirstObjectByType<Player>();
