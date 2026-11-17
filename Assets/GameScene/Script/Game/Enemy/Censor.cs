@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class Censor : MonoBehaviour
 {
-    Enemy _en;
-    EnemyAI _ai;
+    [SerializeField] Enemy _en;
     private void Awake()
     {
-        _en = transform.root.GetComponentInChildren<Enemy>();
+
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
