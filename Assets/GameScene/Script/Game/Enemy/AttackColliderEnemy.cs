@@ -19,7 +19,6 @@ public class AttackColliderEnemy : MonoBehaviour
     {
         if(other.gameObject.CompareTag("PlayerTag"))
         {
-            Debug.Log("a");
             other.GetComponent<Player>()?.ModifyHelth(-_enemy._damage[0], 1);
         }
     }

@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(_isActive);
     }
     
     public void EnemyHelth(float amount, float pile = 1)

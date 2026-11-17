@@ -25,11 +25,11 @@ public class Censor : MonoBehaviour
             RaycastHit hit = new RaycastHit();
             if(Physics.Raycast(ray, out hit))
             {
-                if(hit.collider.gameObject.CompareTag("PlayerTag"))
+                if (hit.collider.gameObject.CompareTag("PlayerTag"))
                 {
                     _en._isActive = true;
                 }
-                else if(hit.collider.gameObject.CompareTag("Wall"))
+                else if (hit.collider.gameObject.CompareTag("Wall"))
                 {
                     _en._isActive = false;
                 }

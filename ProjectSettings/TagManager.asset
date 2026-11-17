@@ -17,9 +17,9 @@ TagManager:
   - Water
   - UI
   - EnemyCensor
-  - NoneCensor
-  - 
-  - 
+  - Wall
+  - CensorRayCast
+  - Player
   - 
   - 
   - 

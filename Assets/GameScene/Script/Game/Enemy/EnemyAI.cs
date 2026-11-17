@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_enemy._isAttack[0]);
+
     }
     private void FixedUpdate()
     {
@@ -69,7 +69,6 @@ public class EnemyAI : MonoBehaviour
         Vector3 direction = _player.transform.position.ChangeVector3(y: 0) - transform.position.ChangeVector3(y: 0);
         Quaternion targetPos = Quaternion.LookRotation(direction);
         float distance = (_player.transform.position - transform.position).magnitude;
-        Debug.Log(direction.y);
         if (distance >= 5)
         {
             //範囲外
