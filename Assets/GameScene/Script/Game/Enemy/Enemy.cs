@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,10 +12,8 @@ public class Enemy : MonoBehaviour
     [SerializeField, Header("弱点")] public GameObject _weakPoints;
     [SerializeField, Header("弱点場所")] public Transform[] _weakPosition;
     Animator _anim;
-
-
     [SerializeField, Header("敵HP ")] public Image _enemyHp;
-    UIManager _ui;
+    UIView _ui;
     Player _player;
     int _weakPosIndex;
     public bool _isActive;
@@ -23,7 +22,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         _player = FindFirstObjectByType<Player>();
-        _ui = FindFirstObjectByType<UIManager>();
+        _ui = FindFirstObjectByType<UIView>();
         //_anim = GetComponent<Animator>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -50,6 +49,7 @@ public class Enemy : MonoBehaviour
         if (_currentHp <= 0)
         {
             //敵倒した処理
+            Death();
             gameObject.SetActive(false);
         }
     }
@@ -67,5 +67,9 @@ public class Enemy : MonoBehaviour
             return RandomRun();
         }
         return random;
+    }
+    public void Death()
+    {
+        _player._enemyDisabled.Value++;
     }
 }

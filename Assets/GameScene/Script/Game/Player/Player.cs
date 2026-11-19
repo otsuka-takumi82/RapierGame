@@ -1,4 +1,5 @@
 using System.Collections;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,18 +21,19 @@ public class Player : MonoBehaviour
     [SerializeField, Header("重力速度")] public float _gravity;
     [SerializeField, Header("カーソル")] public Image _cousle;
     [SerializeField]Transform _camera;
+    public IntReactiveProperty _enemyDisabled = new IntReactiveProperty(0);
     float _sideSpeed;
     float _forwardSpeed;
     public float _isGrounded;
     CharacterController _characterController;
     Rigidbody _rb;
     Animator _anim;
-    UIManager _ui;
+    UIView _ui;
     Vector3 _rapierHitPosition;
     bool _isJump;
     private void Awake()
     {
-        _ui = FindFirstObjectByType<UIManager>();
+        _ui = FindFirstObjectByType<UIView>();
         _anim = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
         _rb = GetComponent<Rigidbody>();
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
     }
     private void OnDestroy()
     {
+        _enemyDisabled.Dispose();
         if(Instance == this)
         {
             Instance = null;

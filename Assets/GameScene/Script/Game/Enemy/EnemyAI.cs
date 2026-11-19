@@ -11,7 +11,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField, Header("ダメージ判定")] public GameObject _attackCollider;
     Player _player;
     Animator _anim;
-    UIManager _ui;
+    UIView _ui;
     Enemy _enemy;
     CancellationTokenSource _cts;
     /// <summary>
