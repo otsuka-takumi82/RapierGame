@@ -1,5 +1,6 @@
 using System.Collections;
 using UniRx;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
     [SerializeField, Header("射程距離")] public float _rapierDistance;
+    [SerializeField, Header("アイテムの場所")] public Transform[] _itemStock;
+    //[SerializeField, Header("刺したアイテム")] public GameObject[] _rapidItem;
     [SerializeField, Header("攻撃力")] public float[] _damage;
     [SerializeField, Header("最大HP")] public float _maxHp;
     public float _currentHp; 
@@ -31,8 +34,10 @@ public class Player : MonoBehaviour
     UIView _ui;
     Vector3 _rapierHitPosition;
     bool _isJump;
+    int _layer;
     private void Awake()
     {
+        _layer = LayerMask.NameToLayer("Ignore Raycast");
         _ui = FindFirstObjectByType<UIView>();
         _anim = GetComponent<Animator>();
         _characterController = GetComponent<CharacterController>();
@@ -128,6 +133,17 @@ public class Player : MonoBehaviour
             _speed[0] *= 0.5f;
             _mouseSpeed[1] = _mouseSpeed[0];
             _mouseSpeed[0] *= 0.5f;
+            //アイテム使用
+            _itemStock[2].GetComponentInChildren<ItemBase>()?.ItemUse();
+            if (_itemStock[2].childCount == 0)
+            {
+                Debug.Log("Charge");
+                if (_itemStock[1].childCount > 0)
+                    ItemMove(_itemStock[1].GetChild(0), _itemStock[1 + 1]);
+                if (_itemStock[0].childCount > 0)
+                    ItemMove(_itemStock[0].GetChild(0), _itemStock[0 + 1]);
+            }
+            
         }
         RapierDistance();
     }
@@ -162,7 +178,27 @@ public class Player : MonoBehaviour
                 em?.WeakPointsDestroy();
                 em._isActive=true;
             }
+            else if (hit.collider.gameObject.CompareTag("Item"))
+            {
+                for(int i = 0; i < _itemStock.Length; i++)
+                {
+                    if (_itemStock[i].childCount == 0)
+                    {
+                        hit.collider.isTrigger = true;
+                        hit.collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                        hit.collider.gameObject.layer = _layer;
+                        ItemMove(hit.collider.transform, _itemStock[i]);
+                        Debug.Log("Coll");
+                        break;
+                    }
+                }
+            }
         }
+    }
+    public void ItemMove(Transform children, Transform pearent)
+    {
+        children.position = pearent.position;
+        children.SetParent(pearent.transform, true);
     }
     public void RapierDistance()
     {

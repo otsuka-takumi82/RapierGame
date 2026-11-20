@@ -3,4 +3,6 @@
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="UniRx.Examples.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="UnityTechnologies.ParticlePack.csproj" />
+  <Project Path="UnityTechnologies.ParticlePack.Editor.csproj" />
 </Solution>

@@ -9,6 +9,8 @@ TagManager:
   - PlayerTag
   - Floor
   - Wall
+  - Fire
+  - Item
   layers:
   - Default
   - TransparentFX
