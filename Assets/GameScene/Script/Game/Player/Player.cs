@@ -154,6 +154,10 @@ public class Player : MonoBehaviour
             _anim.SetBool("Charge", false);
             _speed[0] = _speed[1];
             _mouseSpeed[0] = _mouseSpeed[1];
+            if (_itemStock[2].GetComponentInChildren<ItemBase>() is IRapid rapid)
+            {
+                rapid.RapidAction(transform.forward);
+            }
         }
     }
     public void RapierCollider()
