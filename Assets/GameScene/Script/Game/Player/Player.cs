@@ -93,7 +93,7 @@ public class Player : MonoBehaviour,IHelthSystem
         //キャラクターコントローラー関係
         Move();
     }
-    public void ModifyHelth(float amount, float pile)
+    public void ModifyHelth(float amount, float pile = 1)
     {
         _currentHp = Mathf.Clamp(_currentHp + amount * pile, 0, _maxHp);
         _ui.HP(_hpImage, _currentHp, _maxHp);
@@ -199,6 +199,10 @@ public class Player : MonoBehaviour,IHelthSystem
             {
                 Eye eye = hit.collider.gameObject.GetComponent<Eye>();
                 eye.ZeroOrOne();
+            }
+            else if(hit.collider.gameObject.CompareTag("Potion"))
+            {
+                hit.collider.gameObject.GetComponent<Potion>().SpornMist();
             }
         }
     }
