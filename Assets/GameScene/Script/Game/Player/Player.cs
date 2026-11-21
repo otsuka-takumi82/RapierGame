@@ -137,7 +137,6 @@ public class Player : MonoBehaviour
             _itemStock[2].GetComponentInChildren<ItemBase>()?.ItemUse();
             if (_itemStock[2].childCount == 0)
             {
-                Debug.Log("Charge");
                 if (_itemStock[1].childCount > 0)
                     ItemMove(_itemStock[1].GetChild(0), _itemStock[1 + 1]);
                 if (_itemStock[0].childCount > 0)

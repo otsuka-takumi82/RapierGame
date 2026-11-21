@@ -27,7 +27,11 @@ public class ChaseAI : MonoBehaviour
     {
         if (_enemy._isActive)
         {
-            Move();
+            NavMove();
+        }
+        else
+        {
+            SetAgent(false);
         }
     }
     private void FixedUpdate()
@@ -74,9 +78,14 @@ public class ChaseAI : MonoBehaviour
             _enemy._isAttack[0] = true;
             SetAgent(false);
         }
+
         if (!_enemy._isAttack[1])
         {
             SetAgent(true);
+        }
+        else if( _enemy._isAttack[1])
+        {
+            SetAgent(false);
         }
     }
     public void SetAgent(bool isChase)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BigCensor : MonoBehaviour
 {
-    [SerializeField]Enemy _en;
+    [SerializeField] Enemy _en;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,11 +13,15 @@ public class BigCensor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private void OnTriggerExit(Collider other)
     {
-        _en._isActive = false;
-        _en._isAttack[0] = false;
+        if (other.gameObject.CompareTag("PlayerTag"))
+        {
+
+            _en._isActive = false;
+            _en._isAttack[0] = false;
+        }
     }
 }
