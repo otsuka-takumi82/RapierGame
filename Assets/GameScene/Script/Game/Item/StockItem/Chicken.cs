@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Chicken : ItemBase, IHealable
+public class Chicken : ItemBase, IHelthSystem
 {
     [SerializeField, Header("肉は焼けているか")] public BakedState _state = BakedState.Raw;
     [SerializeField,Header("回復値")]public float _healthAmount;
@@ -17,15 +17,15 @@ public class Chicken : ItemBase, IHealable
     {
         if( _state == BakedState.Raw)
         {
-            Heal(-_healthAmount);
+            ModifyHelth(-_healthAmount);
         }
         else if (_state == BakedState.Bake)
         {
-            Heal(_healthAmount);
+            ModifyHelth(_healthAmount);
         }
         Destroy(gameObject);
     }
-    public void Heal(float amount)
+    public void ModifyHelth(float amount, float pile = 1)
     {
         _player.ModifyHelth(amount, 1);
     }

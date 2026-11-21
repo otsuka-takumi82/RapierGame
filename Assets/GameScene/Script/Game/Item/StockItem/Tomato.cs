@@ -1,14 +1,15 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
-public class Tomato : ItemBase, IHealable
+public class Tomato : ItemBase, IHelthSystem
 {
     [SerializeField, Header("回復値")] public float _healthAmount;
     public override void ItemUse()
     {
-        Heal(_healthAmount);
+        ModifyHelth(_healthAmount);
         Destroy(gameObject);
     }
-    public void Heal(float amount)
+    public void ModifyHelth(float amount, float pile = 1)
     {
         _player.ModifyHelth(amount, 1);
     }

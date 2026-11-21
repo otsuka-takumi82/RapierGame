@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 
 public class Exprotion : MonoBehaviour
 {
-
+    [SerializeField,Header("ダメージ")]float _damage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,7 +15,8 @@ public class Exprotion : MonoBehaviour
         if(other.gameObject.CompareTag("Enemy"))
         {
             Enemy en = other.gameObject.GetComponent<Enemy>();
-            en?.EnemyHelth(-20f);
+            en._isActive = true;
+            en?.ModifyHelth(-20f);
         }
     }
 }

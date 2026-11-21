@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IHelthSystem
 {
     [SerializeField, Header("最大HP")] public float _maxHp;
     public float _currentHp;
@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
         //Debug.Log(_isActive);
     }
     
-    public void EnemyHelth(float amount, float pile = 1)
+    public void ModifyHelth(float amount, float pile = 1)
     {
         _currentHp = Mathf.Clamp(_currentHp + amount * pile, 0, _maxHp);
         _ui.HP(_enemyHp, _currentHp, _maxHp);

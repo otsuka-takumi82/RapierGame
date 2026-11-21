@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Needle
   _player: {fileID: 0}
   _force: 50
-  _healthAmount: 10
+  _healthAmount: 30
   _rb: {fileID: 0}
 --- !u!1001 &1373445795195920019
 PrefabInstance:

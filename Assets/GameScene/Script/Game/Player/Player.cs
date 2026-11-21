@@ -4,7 +4,7 @@ using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour,IHelthSystem
 {
     public static Player Instance { get; private set; }
     [SerializeField, Header("射程距離")] public float _rapierDistance;
@@ -171,13 +171,13 @@ public class Player : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Enemy"))
             {
                 Enemy em = hit.collider.GetComponent<Enemy>();
-                em?.EnemyHelth(-_damage[0], 1f);
+                em?.ModifyHelth(-_damage[0], 1f);
                 em._isActive = true;
             }
             else if (hit.collider.gameObject.CompareTag("WeakPoints"))
             {
                 Enemy em = hit.collider.GetComponentInParent<Enemy>();
-                em?.EnemyHelth(-_damage[0], 2f);
+                em?.ModifyHelth(-_damage[0], 2f);
                 em?.WeakPointsDestroy();
                 em._isActive=true;
             }
@@ -194,6 +194,11 @@ public class Player : MonoBehaviour
                         break;
                     }
                 }
+            }
+            else if(hit.collider.gameObject.CompareTag("Eye"))
+            {
+                Eye eye = hit.collider.gameObject.GetComponent<Eye>();
+                eye.ZeroOrOne();
             }
         }
     }

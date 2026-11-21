@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95356ca9ca0ce5e45aa4394fd6a06e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Exprotion
+  _damage: 40
 --- !u!1001 &2003579757779694046
 PrefabInstance:
   m_ObjectHideFlags: 0

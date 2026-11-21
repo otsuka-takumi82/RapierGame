@@ -1,10 +1,8 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Needle : ItemBase, IRapid
+public class Key : ItemBase, IKey,IRapid
 {
     [SerializeField, Header("飛距離")] public float _force;
-    [SerializeField, Header("ダメージ")] public float _healthAmount;
     public Rigidbody _rb;
     private void Awake()
     {
@@ -12,12 +10,16 @@ public class Needle : ItemBase, IRapid
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Door"))
         {
-            collision.gameObject.GetComponent<Enemy>().EnemyHelth(-_healthAmount);
+            //ドアを開く処理
+            KeyOpen("NomalDoor");
             Destroy(gameObject);
         }
-        if (collision.gameObject.CompareTag("Floor"))
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Floor"))
         {
             gameObject.layer = 0;
         }
@@ -25,6 +27,10 @@ public class Needle : ItemBase, IRapid
     public override void ItemUse()
     {
         //transform.LookAt(_player.transform.forward);
+    }
+    public void KeyOpen(string str)
+    {
+        
     }
     public void RapidAction(Vector3 v)
     {
