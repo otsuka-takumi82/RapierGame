@@ -29,10 +29,10 @@ public class Censor : MonoBehaviour
                 {
                     _en._isActive = true;
                 }
-                else if (hit.collider.gameObject.CompareTag("Wall"))
-                {
-                    _en._isActive = false;
-                }
+                //else if (hit.collider.gameObject.CompareTag("Wall"))
+                //{
+                //    _en._isActive = false;
+                //}
             }
         }
     }
