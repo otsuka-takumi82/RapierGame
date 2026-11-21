@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
             _mouseSpeed[0] = _mouseSpeed[1];
             if (_itemStock[2].GetComponentInChildren<ItemBase>() is IRapid rapid)
             {
-                rapid.RapidAction(transform.forward);
+                rapid.RapidAction(_camera.transform.forward);
             }
         }
     }
@@ -192,7 +192,6 @@ public class Player : MonoBehaviour
                         hit.collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                         hit.collider.gameObject.layer = _layer;
                         ItemMove(hit.collider.transform, _itemStock[i]);
-                        Debug.Log("Coll");
                         break;
                     }
                 }

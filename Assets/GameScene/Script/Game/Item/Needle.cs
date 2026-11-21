@@ -31,7 +31,7 @@ public class Needle : ItemBase, IRapid
         transform.SetParent(null, true);
         GetComponent<Collider>().isTrigger = false;
         _rb.isKinematic = false;
-        transform.LookAt(transform.position += v);
+        transform.rotation = Quaternion.LookRotation(v);
         _rb.AddForce(v * _force, ForceMode.Impulse);
     }
 }

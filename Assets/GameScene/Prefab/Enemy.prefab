@@ -763,7 +763,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3059
+  m_VersionIndex: 3080
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -38677,7 +38677,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 675
+  m_VersionIndex: 696
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -38999,7 +38999,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 5058
+  m_VersionIndex: 5079
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -39165,6 +39165,7 @@ GameObject:
   - component: {fileID: 4598881743373745477}
   - component: {fileID: 199601746049047256}
   - component: {fileID: 3035705802203387459}
+  - component: {fileID: 5429919652804875999}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -39401,7 +39402,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3059
+  m_VersionIndex: 3080
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -39597,6 +39598,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68074e281aaf6a641b169be7b1ae0160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+--- !u!114 &5429919652804875999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7522993844012537128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ad86b129c40064592ceefe6ca7858b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackAI
   _attackEvents:
   - m_PersistentCalls:
       m_Calls:

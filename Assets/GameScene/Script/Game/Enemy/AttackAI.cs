@@ -1,11 +1,9 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using UnityEngine.Subsystems;
 
-public class EnemyAI : MonoBehaviour
+public class AttackAI : MonoBehaviour
 {
     [SerializeField, Header("攻撃時")] public UnityEvent[] _attackEvents;
     [SerializeField, Header("ダメージ判定")] public GameObject _attackCollider;
@@ -42,13 +40,6 @@ public class EnemyAI : MonoBehaviour
     {
 
     }
-    private void FixedUpdate()
-    {
-        if(_enemy._isActive )
-        {
-            Move();
-        }
-    }
     private void OnDestroy()
     {
         NewMesods.StopAsync(ref _cts);
@@ -68,10 +59,10 @@ public class EnemyAI : MonoBehaviour
     {
         while (true)
         {
-            await UniTask.WaitUntil(() => _enemy._isAttack[0], cancellationToken:ct);
+            await UniTask.WaitUntil(() => _enemy._isAttack[0], cancellationToken: ct);
             _attackEvents[0].Invoke();
             _enemy._isAttack[1] = true;
-            await UniTask.WaitForSeconds(2f, cancellationToken:ct);
+            await UniTask.WaitForSeconds(2f, cancellationToken: ct);
             _enemy._isAttack[1] = false;
         }
     }
@@ -81,28 +72,6 @@ public class EnemyAI : MonoBehaviour
         {
             //var ct = this.GetCancellationTokenOnDestroy();
             AttackCol(_cts.Token).Forget();
-        }
-    }
-    public void Move()
-    {
-
-        Vector3 direction = _player.transform.position.ChangeVector3(y: 0) - transform.position.ChangeVector3(y: 0);
-        Quaternion targetPos = Quaternion.LookRotation(direction);
-        float distance = (_player.transform.position - transform.position).magnitude;
-        if (distance >= 5)
-        {
-            //範囲外
-            _enemy._isAttack[0] = false;
-        }
-        else
-        {
-            //範囲内
-            _enemy._isAttack[0] = true;
-        }
-        if (!_enemy._isAttack[1])
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetPos, 0.1f);
-            transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _enemy._speed[0] / 100);
         }
     }
 }

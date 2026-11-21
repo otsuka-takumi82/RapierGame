@@ -16,7 +16,10 @@ public class Key : ItemBase, IKey,IRapid
             KeyOpen("NomalDoor");
             Destroy(gameObject);
         }
-        else if (collision.gameObject.CompareTag("Floor"))
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Floor"))
         {
             gameObject.layer = 0;
         }
