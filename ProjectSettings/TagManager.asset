@@ -14,6 +14,7 @@ TagManager:
   - Door
   - Eye
   - Potion
+  - Foggy
   layers:
   - Default
   - TransparentFX

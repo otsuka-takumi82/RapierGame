@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class ChaseAI : MonoBehaviour
 {
+    [SerializeField, Header("プレイヤーとの距離")] public float _distance = 5f;
     NavMeshAgent _navAgent;
     Player _player;
     UIView _ui;
@@ -47,7 +48,7 @@ public class ChaseAI : MonoBehaviour
         Vector3 direction = _player.transform.position.ChangeVector3(y: 0) - transform.position.ChangeVector3(y: 0);
         Quaternion targetPos = Quaternion.LookRotation(direction);
         float distance = (_player.transform.position - transform.position).magnitude;
-        if (distance >= 5)
+        if (distance >= _distance)
         {
             //範囲外
             _enemy._isAttack[0] = false;
@@ -66,7 +67,7 @@ public class ChaseAI : MonoBehaviour
     public void NavMove()
     {
         float distance = (_player.transform.position - transform.position).magnitude;
-        if (distance >= 5)
+        if (distance >= _distance)
         {
             //範囲外
             _enemy._isAttack[0] = false;

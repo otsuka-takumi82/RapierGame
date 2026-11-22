@@ -763,7 +763,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3092
+  m_VersionIndex: 3113
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -38677,7 +38677,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 708
+  m_VersionIndex: 729
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -38999,7 +38999,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 5091
+  m_VersionIndex: 5112
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -39403,7 +39403,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3092
+  m_VersionIndex: 3113
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -39599,6 +39599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68074e281aaf6a641b169be7b1ae0160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  _distance: 5
 --- !u!114 &5429919652804875999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39626,7 +39627,10 @@ MonoBehaviour:
           m_StringArgument: Attack1
           m_BoolArgument: 0
         m_CallState: 2
-  _attackCollider: {fileID: 2888116783575920368}
+  _attackCollider:
+  - {fileID: 2888116783575920368}
+  _player: {fileID: 0}
+  _enemy: {fileID: 0}
 --- !u!195 &7258356964947403364
 NavMeshAgent:
   m_ObjectHideFlags: 0
